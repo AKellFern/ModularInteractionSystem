@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "InteractionComponent.h"
 #include "InteractionFramework/InteractionComponent.h"
 #include "InteractableActor.generated.h"
 
@@ -20,6 +21,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
 	UInteractionComponent* InteractionComp;
 
 

@@ -16,6 +16,15 @@ public:
 	// Sets default values for this component's properties
 	UInteractionComponent();
 
+	// Whether the player can interact with this component
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
+	bool bCanInteract;
+
+	// The text to display when the player can interact with this component
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
+	FText InteractionText;
+
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
