@@ -67,6 +67,18 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
+protected:
+	/* Performs a trace for interactable objects in front of the character, and interacts with the first one found */
+	UFUNCTION(Category = "Interaction")
+	void PerformInteractionTrace();
+
+	/*Enable tick to allow the line trace every frame*/
+	virtual void Tick(float DeltaTime) override;
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Interaction")
+	float InteractionTraceDistance = 500.f;
+
 public:
 
 	/** Handles move inputs from either controls or UI interfaces */
@@ -84,6 +96,7 @@ public:
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
+
 
 public:
 

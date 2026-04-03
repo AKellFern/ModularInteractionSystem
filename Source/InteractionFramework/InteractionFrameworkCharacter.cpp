@@ -11,9 +11,12 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "InteractionFramework.h"
+#include <InteractableActor.h>
 
 AInteractionFrameworkCharacter::AInteractionFrameworkCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -130,4 +133,46 @@ void AInteractionFrameworkCharacter::DoJumpEnd()
 {
 	// signal the character to stop jumping
 	StopJumping();
+}
+
+void AInteractionFrameworkCharacter::PerformInteractionTrace()
+{	
+	// Calculate start and end points for the forward line trace from the camera 
+	FVector TraceStart = FollowCamera->GetComponentLocation();
+	FVector TraceEnd = TraceStart + (FollowCamera->GetForwardVector() * InteractionTraceDistance);
+	FHitResult HitResult;
+
+	// Perform a line trace to check for interactable objects in front of the character
+	bool bValidHit = GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility);
+
+
+	//Checks that a valid in-world actor was hit
+	if (bValidHit)
+	{
+		AActor* HitActor = HitResult.GetActor();
+		
+		// If the actor is valid it checks for an interaction component and whether it can interact
+		if (HitActor)
+		{
+			UInteractionComponent* InteractionComp = HitActor->FindComponentByClass<UInteractionComponent>();
+			if (InteractionComp && InteractionComp->bCanInteract)
+			{
+				// WIP interaction logic - for now it just logs the name of the interactable actor that was hit
+				UE_LOG(LogInteractionFramework, Log, TEXT("Interacted with: %s"), *HitActor->GetName());
+			}
+		}
+	}
+	
+
+	
+
+}
+
+void AInteractionFrameworkCharacter::Tick(float DeltaTime)
+{
+	/*Parent class call*/
+	ACharacter::Tick(DeltaTime);
+
+	/*Overriden logic for line trace*/
+	PerformInteractionTrace();
 }
