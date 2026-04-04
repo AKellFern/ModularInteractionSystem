@@ -11,8 +11,10 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
+class UInteractionComponent;
 
-DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+// Unified log category
+DECLARE_LOG_CATEGORY_EXTERN(LogInteractionFramework, Log, All);
 
 /**
  *  A simple player-controllable third person character
@@ -24,86 +26,72 @@ class AInteractionFrameworkCharacter : public ACharacter
 	GENERATED_BODY()
 
 	/** Camera boom positioning the camera behind the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
-	
+
 protected:
 
-	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
 
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MoveAction;
 
-	/** Look Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* LookAction;
 
-	/** Mouse Look Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MouseLookAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* InteractAction;
 
 public:
 
-	/** Constructor */
-	AInteractionFrameworkCharacter();	
+	AInteractionFrameworkCharacter();
 
 protected:
 
-	/** Initialize input action bindings */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-protected:
-
-	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
-
-	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-protected:
-	/* Performs a trace for interactable objects in front of the character, and interacts with the first one found */
 	UFUNCTION(Category = "Interaction")
 	void PerformInteractionTrace();
 
-	/*Enable tick to allow the line trace every frame*/
 	virtual void Tick(float DeltaTime) override;
 
 public:
+
 	UPROPERTY(EditAnywhere, Category = "Interaction")
 	float InteractionTraceDistance = 500.f;
 
+	UInteractionComponent* CurrentInteractionComponent;
+
 public:
 
-	/** Handles move inputs from either controls or UI interfaces */
-	UFUNCTION(BlueprintCallable, Category="Input")
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoMove(float Right, float Forward);
 
-	/** Handles look inputs from either controls or UI interfaces */
-	UFUNCTION(BlueprintCallable, Category="Input")
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoLook(float Yaw, float Pitch);
 
-	/** Handles jump pressed inputs from either controls or UI interfaces */
-	UFUNCTION(BlueprintCallable, Category="Input")
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoJumpStart();
 
-	/** Handles jump pressed inputs from either controls or UI interfaces */
-	UFUNCTION(BlueprintCallable, Category="Input")
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoJumpEnd();
 
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	virtual void DoInteract();
 
 public:
 
-	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-
-	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 };
-
