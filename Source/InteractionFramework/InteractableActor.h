@@ -5,11 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "InteractionComponent.h"
+#include "INT_Interact.h"
 #include "InteractionFramework/InteractionComponent.h"
 #include "InteractableActor.generated.h"
 
 UCLASS()
-class INTERACTIONFRAMEWORK_API AInteractableActor : public AActor
+class INTERACTIONFRAMEWORK_API AInteractableActor : public AActor, public IINT_Interact
 {
 	GENERATED_BODY()
 	
@@ -28,6 +29,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void ExecuteInteraction_Implementation() override;
+
 
 	
 	

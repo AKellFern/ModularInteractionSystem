@@ -28,3 +28,7 @@ void AInteractableActor::Tick(float DeltaTime)
 
 }
 
+void AInteractableActor::ExecuteInteraction_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("InteractableActor: Interaction received"));
+}

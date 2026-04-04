@@ -116,6 +116,11 @@ void AInteractionFrameworkCharacter::DoInteract()
 	if (CurrentInteractionComponent)
 	{
 		UE_LOG(LogInteractionFramework, Log, TEXT("Interaction triggered"));
+
+		if (CurrentInteractionComponent)
+		{
+			CurrentInteractionComponent->ConfirmInteract();
+		}
 	}
 }
 

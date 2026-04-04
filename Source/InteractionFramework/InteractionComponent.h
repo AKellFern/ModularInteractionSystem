@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "INT_Interact.h"
 #include "InteractionComponent.generated.h"
 
 
@@ -24,6 +25,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
 	FText InteractionText;
 
+	// Called to confirm the interaction, e.g. when the player presses the interact button
+	UFUNCTION(BlueprintCallable, Category = "Interaction")
+	virtual void ConfirmInteract();
 
 protected:
 	// Called when the game starts
@@ -32,7 +36,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
 	
 };

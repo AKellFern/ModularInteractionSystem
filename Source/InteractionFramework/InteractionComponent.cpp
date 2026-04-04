@@ -2,6 +2,8 @@
 
 
 #include "InteractionComponent.h"
+#include "InteractionFramework.h"
+
 
 
 // Sets default values for this component's properties
@@ -16,6 +18,31 @@ UInteractionComponent::UInteractionComponent()
 	InteractionText = FText::FromString(TEXT("Interact"));
 }
 
+
+void UInteractionComponent::ConfirmInteract()
+{
+	if (bCanInteract)
+	{
+		UE_LOG(LogInteractionFramework, Log, TEXT("Interaction confirmed on %s"), *GetNameSafe(this));
+
+		AActor* Owner = GetOwner();
+
+		if (Owner)
+		{
+			bool bImplemented = Owner->Implements<UINT_Interact>();
+
+			if (bImplemented)
+			{
+				IINT_Interact::Execute_ExecuteInteraction(Owner);
+			}
+			else
+			{
+				UE_LOG(LogInteractionFramework, Warning, TEXT("Owner %s does not implement the interaction interface"), *GetNameSafe(Owner));
+			}
+		}
+	}
+
+}
 
 // Called when the game starts
 void UInteractionComponent::BeginPlay()

@@ -13,8 +13,6 @@ class UInputAction;
 struct FInputActionValue;
 class UInteractionComponent;
 
-// Unified log category
-DECLARE_LOG_CATEGORY_EXTERN(LogInteractionFramework, Log, All);
 
 /**
  *  A simple player-controllable third person character
