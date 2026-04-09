@@ -150,6 +150,8 @@ void AInteractionFrameworkCharacter::PerformInteractionTrace()
 {
 	CurrentInteractionComponent = nullptr;
 
+	CurrentInteractionText = FText::GetEmpty();
+
 	if (InteractionPromptWidget)
 	{
 		InteractionPromptWidget->SetVisibility(ESlateVisibility::Hidden);
@@ -173,7 +175,11 @@ void AInteractionFrameworkCharacter::PerformInteractionTrace()
 			if (InteractionComp && InteractionComp->bCanInteract)
 			{
 				UE_LOG(LogInteractionFramework, Log, TEXT("Looking at interactable: %s"), *HitActor->GetName());
+
 				CurrentInteractionComponent = InteractionComp;
+
+				CurrentInteractionText = InteractionComp->InteractionText;
+
 
 				if (InteractionPromptWidget)
 				{

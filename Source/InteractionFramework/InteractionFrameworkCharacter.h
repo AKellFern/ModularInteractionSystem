@@ -81,6 +81,10 @@ public:
 
 	UInteractionComponent* CurrentInteractionComponent;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Interaction")
+	FText CurrentInteractionText;
+
+
 public:
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
