@@ -12,7 +12,7 @@ class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
 class UInteractionComponent;
-
+class UUserWidget;
 
 /**
  *  A simple player-controllable third person character
@@ -54,8 +54,6 @@ public:
 
 protected:
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
@@ -63,6 +61,18 @@ protected:
 	void PerformInteractionTrace();
 
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void BeginPlay() override;
+
+	/** UI: Interaction prompt widget class (set in Blueprint) */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	TSubclassOf<UUserWidget> InteractionPromptClass;
+
+	/** UI: Runtime instance of the interaction prompt */
+	UPROPERTY()
+	UUserWidget* InteractionPromptWidget;
 
 public:
 

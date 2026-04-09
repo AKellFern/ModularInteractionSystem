@@ -12,6 +12,7 @@
 #include "InputActionValue.h"
 #include "InteractionFramework.h"
 #include "InteractionComponent.h"
+#include "Blueprint/UserWidget.h"
 #include <InteractableActor.h>
 
 AInteractionFrameworkCharacter::AInteractionFrameworkCharacter()
@@ -62,6 +63,27 @@ void AInteractionFrameworkCharacter::SetupPlayerInputComponent(UInputComponent* 
 	else
 	{
 		UE_LOG(LogInteractionFramework, Error, TEXT("Failed to find Enhanced Input component on %s"), *GetNameSafe(this));
+	}
+}
+
+void AInteractionFrameworkCharacter::BeginPlay()
+{
+
+	Super::BeginPlay();
+
+	if (InteractionPromptClass)
+	{
+		InteractionPromptWidget = CreateWidget<UUserWidget>(GetWorld(), InteractionPromptClass);
+
+		if (InteractionPromptWidget)
+		{
+			InteractionPromptWidget->AddToViewport();
+			InteractionPromptWidget->SetVisibility(ESlateVisibility::Hidden);
+		}
+		else
+		{
+			UE_LOG(LogInteractionFramework, Error, TEXT("Failed to create Interaction Prompt Widget from class %s"), *GetNameSafe(InteractionPromptClass));
+		}
 	}
 }
 
@@ -128,6 +150,11 @@ void AInteractionFrameworkCharacter::PerformInteractionTrace()
 {
 	CurrentInteractionComponent = nullptr;
 
+	if (InteractionPromptWidget)
+	{
+		InteractionPromptWidget->SetVisibility(ESlateVisibility::Hidden);
+	}
+
 	FVector TraceStart = FollowCamera->GetComponentLocation();
 	FVector TraceEnd = TraceStart + (FollowCamera->GetForwardVector() * InteractionTraceDistance);
 
@@ -147,6 +174,11 @@ void AInteractionFrameworkCharacter::PerformInteractionTrace()
 			{
 				UE_LOG(LogInteractionFramework, Log, TEXT("Looking at interactable: %s"), *HitActor->GetName());
 				CurrentInteractionComponent = InteractionComp;
+
+				if (InteractionPromptWidget)
+				{
+					InteractionPromptWidget->SetVisibility(ESlateVisibility::Visible);
+				}
 			}
 		}
 	}
