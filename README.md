@@ -1,35 +1,37 @@
 # Modular Interaction System (Unreal Engine 5)
 
-Proof of concept for a modular gameplay interaction framework built in Unreal Engine 5 using C++ and Blueprint integration.
+Proof of concept for a modular gameplay interaction framework built in Unreal Engine 5 using C++ with Blueprint integration.
 
 ## Overview
 
-This system demonstrates a scalable, component-driven approach to handling player interactions with world objects such as doors, levers, and resource nodes. The goal is to avoid hardcoded interaction logic by centralizing detection while allowing each object to define its own behavior.
+This system demonstrates a scalable, component-driven approach to player interaction. Instead of hardcoding behavior per object, interaction detection is centralized while individual actors define their own responses.
+
+The result is a flexible framework that supports rapid iteration and clean extensibility across multiple gameplay scenarios.
 
 ## Features
 
 * Component-based interaction system (`UInteractionComponent`)
 * Interface-driven execution (`INT_Interact`)
 * Camera-based line trace interaction detection (Tick-driven)
-* Decoupled interaction input and execution pipeline
+* Decoupled input → interaction execution pipeline
 * Dynamic UI prompt system (UMG)
 * Reusable architecture for multiple interactable types
 
-## Current Progress
+## Current Implementation
 
 * Base `InteractableActor` class (C++)
 * `InteractionComponent` with exposed properties:
-
   * `bCanInteract`
   * `InteractionText`
 * Interface-based interaction execution flow
-* Player interaction trace system implemented (camera forward trace)
-* Interaction input binding (`DoInteract`)
+* Player-driven interaction trace system (camera forward trace)
+* Input binding via Enhanced Input (`DoInteract`)
 * Dynamic interaction prompt UI:
-
   * Widget created at runtime (`BeginPlay`)
-  * Visibility driven by interaction trace
+  * Visibility driven by trace detection
   * Displays context-sensitive interaction text
+* Example resource interaction:
+  * Ore nodes can be targeted and destroyed via interaction
 
 ## Example Interactions
 
@@ -39,22 +41,23 @@ This system demonstrates a scalable, component-driven approach to handling playe
 
 ## Technical Highlights
 
-* Separation of responsibilities:
-
-  * Detection (Character)
-  * Validation (InteractionComponent)
-  * Execution (Interface / Actor)
+* Clear separation of responsibilities:
+  * Detection → Character (trace system)
+  * Validation → `InteractionComponent`
+  * Execution → Interface / Actor
+* Fully decoupled interaction pipeline
 * Designed for extensibility without modifying core systems
 * Blueprint-friendly for rapid iteration and designer control
 
 ## Next Steps
 
-* Expand interaction types (lever, resource node, etc.)
-* Improve UI system (animations, styling, input prompts)
-* Add prioritization for multiple interactables
-* Optimize trace logic if needed (distance/frequency tuning)
+* Expand interaction types (lever, resource node variations, etc.)
+* Enhance UI system (animations, styling, input prompts)
+* Add interaction prioritization (multiple targets)
+* Introduce interaction states (hold, cooldown, multi-step)
+* Optimize trace performance if needed
 * Integrate with inventory or gameplay systems
 
 ## Purpose
 
-This project is part of a gameplay programming portfolio, focusing on building scalable systems that reflect real-world game development practices.
+This project serves as a gameplay programming portfolio piece, demonstrating the design and implementation of scalable, modular systems aligned with real-world game development practices.
