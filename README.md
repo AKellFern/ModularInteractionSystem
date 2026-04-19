@@ -4,9 +4,11 @@ Proof of concept for a modular gameplay interaction framework built in Unreal En
 
 ## Overview
 
-This system demonstrates a scalable, component-driven approach to player interaction. Instead of hardcoding behavior per object, interaction detection is centralized while individual actors define their own responses.
+This system demonstrates a scalable, component-driven approach to player interaction. Rather than hardcoding behavior per object, interaction detection is centralized while individual actors define their own responses.
 
-The result is a flexible framework that supports rapid iteration and clean extensibility across multiple gameplay scenarios.
+The result is a flexible and extensible framework that supports rapid iteration and clean integration across multiple gameplay scenarios.
+
+Visual assets used in this project are sourced from the Unreal Engine Fab marketplace for prototyping purposes; all gameplay systems and architecture are original implementations.
 
 ## Features
 
@@ -61,3 +63,11 @@ The result is a flexible framework that supports rapid iteration and clean exten
 ## Purpose
 
 This project serves as a gameplay programming portfolio piece, demonstrating the design and implementation of scalable, modular systems aligned with real-world game development practices.
+
+## Asset Usage & Attribution
+
+This project incorporates third-party assets sourced from the Unreal Engine Fab marketplace for visual demonstration and prototyping purposes.
+
+All core systems—including the interaction framework, component architecture, and gameplay logic—are original implementations developed independently.
+
+Third-party assets are used in accordance with their respective licensing terms and are not included for redistribution as part of this project.
