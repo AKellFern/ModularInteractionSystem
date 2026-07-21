@@ -2,7 +2,10 @@
 
 #pragma once
 
+#include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
+
+DECLARE_LOG_CATEGORY_EXTERN(LogInteractionSystem, Log, All);
 
 class FInteractionSystemModule : public IModuleInterface
 {
