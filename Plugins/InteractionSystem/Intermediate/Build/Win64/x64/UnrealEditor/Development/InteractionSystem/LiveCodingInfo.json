@@ -1,0 +1,9 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.InteractionSystem.cpp.obj": [
+			"PerModuleInline.gen.cpp.obj",
+			"InteractionSystem.cpp.obj"
+		]
+	}
+}

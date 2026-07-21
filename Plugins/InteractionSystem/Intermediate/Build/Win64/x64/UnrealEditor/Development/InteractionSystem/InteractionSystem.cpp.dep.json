@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\source\\interactionsystem\\private\\interactionsystem.cpp",
+        "ProvidedModule": "",
+        "PCH": "w:\\unrealengine\\ue_5.x_source\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\interactionsystem\\definitions.interactionsystem.h",
+            "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\source\\interactionsystem\\public\\interactionsystem.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
