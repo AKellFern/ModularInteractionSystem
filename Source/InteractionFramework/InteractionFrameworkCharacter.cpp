@@ -13,6 +13,7 @@
 #include "InteractionFramework.h"
 #include "InteractionComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/InteractorComponent.h"
 #include <InteractableActor.h>
 
 AInteractionFrameworkCharacter::AInteractionFrameworkCharacter()
@@ -43,6 +44,8 @@ AInteractionFrameworkCharacter::AInteractionFrameworkCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	InteractorComponent = CreateDefaultSubobject<UInteractorComponent>(TEXT("InteractorComponent"));
 }
 
 void AInteractionFrameworkCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -85,6 +88,8 @@ void AInteractionFrameworkCharacter::BeginPlay()
 			UE_LOG(LogInteractionFramework, Error, TEXT("Failed to create Interaction Prompt Widget from class %s"), *GetNameSafe(InteractionPromptClass));
 		}
 	}
+
+	InteractorComponent->SetTraceOrigin(FollowCamera);
 }
 
 void AInteractionFrameworkCharacter::Move(const FInputActionValue& Value)
@@ -135,14 +140,13 @@ void AInteractionFrameworkCharacter::DoJumpEnd()
 
 void AInteractionFrameworkCharacter::DoInteract()
 {
-	if (CurrentInteractionComponent)
+	if (IsValid(InteractorComponent))
 	{
-		UE_LOG(LogInteractionFramework, Log, TEXT("Interaction triggered"));
-
-		if (CurrentInteractionComponent)
-		{
-			CurrentInteractionComponent->ConfirmInteract();
-		}
+		InteractorComponent->Interact();
+	}
+	else
+	{
+		UE_LOG(LogInteractionFramework, Error, TEXT("InteractorComponent is invalid on %s"), *GetNameSafe(this));
 	}
 }
 
@@ -192,6 +196,30 @@ void AInteractionFrameworkCharacter::PerformInteractionTrace()
 
 void AInteractionFrameworkCharacter::Tick(float DeltaTime)
 {
-	ACharacter::Tick(DeltaTime);
-	PerformInteractionTrace();
-}
+	Super::Tick(DeltaTime);
+
+	if (InteractorComponent)
+	{
+		if (InteractorComponent->GetCurrentInteractableActor())
+		{
+			UE_LOG(LogInteractionFramework, Warning, TEXT("Interactor found: %s"),
+				*InteractorComponent->GetCurrentInteractableActor()->GetName());
+		}
+		else
+		{
+			UE_LOG(LogInteractionFramework, Warning, TEXT("Interactor found nothing"));
+		}
+	}
+
+	const bool bHasInteractable = IsValid(InteractorComponent->GetCurrentInteractableActor());
+
+	CurrentInteractionText = InteractorComponent->GetCurrentInteractionText();
+
+	if (InteractionPromptWidget)
+	{
+		InteractionPromptWidget->SetVisibility(
+			bHasInteractable
+			? ESlateVisibility::Visible
+			: ESlateVisibility::Hidden);
+	}
+}	

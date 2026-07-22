@@ -10,6 +10,7 @@ UInteractorComponent::UInteractorComponent()
 {
 	// Automatic tracing requires this component to update each frame.
 	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bStartWithTickEnabled = true;
 
 	InteractionTraceDistance = 500.0f;
 	InteractionTraceChannel = ECC_Visibility;
@@ -24,9 +25,7 @@ void UInteractorComponent::BeginPlay()
 }
 
 void UInteractorComponent::TickComponent(
-	float DeltaTime,
-	ELevelTick TickType,
-	FActorComponentTickFunction* ThisTickFunction)
+	float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
@@ -38,6 +37,8 @@ void UInteractorComponent::TickComponent(
 
 void UInteractorComponent::Interact()
 {
+	UE_LOG(LogInteractionSystem, Warning, TEXT("Interact() called"));
+
 	if (!CurrentInteractable)
 	{
 		return;

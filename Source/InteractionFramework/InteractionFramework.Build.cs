@@ -18,8 +18,9 @@ public class InteractionFramework : ModuleRules
 			"StateTreeModule",
 			"GameplayStateTreeModule",
 			"UMG",
-			"Slate"
-		});
+			"Slate",
+			"InteractionSystem"
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
 

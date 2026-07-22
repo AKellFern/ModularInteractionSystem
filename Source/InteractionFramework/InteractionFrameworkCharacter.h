@@ -13,6 +13,7 @@ class UInputAction;
 struct FInputActionValue;
 class UInteractionComponent;
 class UUserWidget;
+class UInteractorComponent;
 
 /**
  *  A simple player-controllable third person character
@@ -30,6 +31,11 @@ class AInteractionFrameworkCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+	/** Handles interaction tracing and interaction execution **/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInteractorComponent> InteractorComponent;
+
 
 protected:
 
