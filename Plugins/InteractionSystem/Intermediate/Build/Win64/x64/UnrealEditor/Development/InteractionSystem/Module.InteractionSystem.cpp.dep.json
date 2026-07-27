@@ -20,6 +20,7 @@
             "w:\\unrealengine\\ue_5.x_source\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl",
             "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\source\\interactionsystem\\private\\components\\interactablecomponent.cpp",
             "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\source\\interactionsystem\\public\\interactionsystem.h",
+            "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\source\\interactionsystem\\private\\components\\interactorcomponent.cpp",
             "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\source\\interactionsystem\\private\\interactionsystem.cpp",
             "l:\\unrealprojects\\interactionframework\\plugins\\interactionsystem\\source\\interactionsystem\\private\\interfaces\\interactable.cpp"
         ],

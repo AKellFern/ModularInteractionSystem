@@ -8,9 +8,9 @@
 			"InteractorComponent.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"InteractableComponent.cpp.obj",
-			"InteractorComponent.cpp.obj",
 			"InteractionSystem.cpp.obj",
-			"Interactable.cpp.obj"
+			"Interactable.cpp.obj",
+			"InteractorComponent.cpp.obj"
 		]
 	}
 }

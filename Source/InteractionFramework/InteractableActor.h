@@ -4,13 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "InteractionComponent.h"
-#include "INT_Interact.h"
-#include "InteractionFramework/InteractionComponent.h"
+#include "Components/InteractableComponent.h"
+#include "Interfaces/Interactable.h"
 #include "InteractableActor.generated.h"
 
 UCLASS()
-class INTERACTIONFRAMEWORK_API AInteractableActor : public AActor, public IINT_Interact
+class INTERACTIONFRAMEWORK_API AInteractableActor : public AActor, public IInteractable
 {
 	GENERATED_BODY()
 	
@@ -23,14 +22,14 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
-	UInteractionComponent* InteractionComp;
+	UInteractableComponent* InteractableComponent;
+
 
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void ExecuteInteraction_Implementation() override;
 
 
 	

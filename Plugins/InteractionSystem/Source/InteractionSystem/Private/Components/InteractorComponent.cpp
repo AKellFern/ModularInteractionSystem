@@ -142,3 +142,4 @@ FText UInteractorComponent::GetCurrentInteractionText() const
 		? CurrentInteractable->InteractionText
 		: FText::GetEmpty();
 }
+

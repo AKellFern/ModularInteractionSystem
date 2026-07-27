@@ -10,7 +10,7 @@ AInteractableActor::AInteractableActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	InteractionComp = CreateDefaultSubobject<UInteractionComponent>(TEXT("InteractionComp"));
+	InteractableComponent = CreateDefaultSubobject<UInteractableComponent>(TEXT("InteractableComponent"));
 
 }
 
@@ -28,7 +28,4 @@ void AInteractableActor::Tick(float DeltaTime)
 
 }
 
-void AInteractableActor::ExecuteInteraction_Implementation()
-{
-	UE_LOG(LogTemp, Warning, TEXT("InteractableActor: Interaction received"));
-}
+
